@@ -1,0 +1,2 @@
+rootProject.name='MouseBlog'
+include ':app'

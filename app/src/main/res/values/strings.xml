@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MouseBlog</string>
+    <string name="application_token">application_token</string>
+</resources>
