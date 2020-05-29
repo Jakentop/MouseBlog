@@ -1,4 +1,4 @@
-package top.jaken.mouseblog.activities.ui;
+package top.jaken.mouseblog.activities.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

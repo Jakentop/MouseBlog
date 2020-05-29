@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import top.jaken.mouseblog.R;
 import top.jaken.mouseblog.activities.Blog.Blog;
-import top.jaken.mouseblog.activities.ui.Home;
-import top.jaken.mouseblog.activities.ui.Message;
-import top.jaken.mouseblog.activities.ui.Mine;
+import top.jaken.mouseblog.activities.Home.Home;
+import top.jaken.mouseblog.activities.Message.Message;
+import top.jaken.mouseblog.activities.Mine.Mine;
 
 public class Index extends AppCompatActivity {
 

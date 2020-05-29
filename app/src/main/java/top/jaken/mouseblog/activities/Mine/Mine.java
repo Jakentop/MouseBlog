@@ -1,4 +1,4 @@
-package top.jaken.mouseblog.activities.ui;
+package top.jaken.mouseblog.activities.Mine;
 
 import android.os.Bundle;
 

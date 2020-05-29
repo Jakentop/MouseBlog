@@ -1,4 +1,4 @@
-package top.jaken.mouseblog.activities.ui;
+package top.jaken.mouseblog.activities.Blog;
 
 import android.os.Bundle;
 
@@ -13,9 +13,9 @@ import top.jaken.mouseblog.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Message extends Fragment {
+public class BlogMine extends Fragment {
 
-    public Message() {
+    public BlogMine() {
         // Required empty public constructor
     }
 
@@ -24,6 +24,6 @@ public class Message extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message, container, false);
+        return inflater.inflate(R.layout.fragment_blog_mine, container, false);
     }
 }

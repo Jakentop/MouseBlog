@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.JSON;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +30,7 @@ public class blog_list extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             BlogCardAdapter adapter = new BlogCardAdapter(blog_list.this,R.layout.blog_card, blogCards);
-            ListView listView=findViewById(R.id.blog_lists);
+            ListView listView=findViewById(R.id.FrBlogBlogLists);
 //            添加项目列表点击事件
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
