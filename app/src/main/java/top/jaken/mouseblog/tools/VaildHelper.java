@@ -42,4 +42,16 @@ public abstract class VaildHelper {
         Matcher matcher = pattern.matcher(eMail);
         return !matcher.matches();
     }
+
+    /**
+     * 用于配对当前的MapKeyName是否满足注册的要求
+     * @param MapKeyName
+     * @return
+     */
+    public static boolean isCurrentAppMapKeyName(String MapKeyName) {
+        String regEx = "^MY[_].*";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(MapKeyName);
+        return matcher.matches();
+    }
 }

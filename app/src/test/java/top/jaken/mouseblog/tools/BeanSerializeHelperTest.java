@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import top.jaken.mouseblog.dao.BlogCard;
-
 import static org.junit.Assert.*;
 
 public class BeanSerializeHelperTest {
@@ -43,7 +41,6 @@ public class BeanSerializeHelperTest {
 
     @Test
     public void ajaxJsonStringToBeans() throws Exception {
-        List<BlogCard>res=(List<BlogCard>) BeanSerializeHelper.ajaxJsonStringToBeans(resource, BlogCard.class, handler);
-        System.out.println(res.toString());
+
     }
 }
