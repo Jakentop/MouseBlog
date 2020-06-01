@@ -10,7 +10,119 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="这是我的"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="357dp" />
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:text="这是用户名"
+        android:textColor="@color/colorDeepTitle"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:text="退出"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineCardTags"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标签管理" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineChangePassword"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/FrMineCardTags">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineChangeEmail"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/FrMineChangePassword"
+        app:layout_constraintTop_toBottomOf="@+id/FrMineChangePassword">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改邮箱" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineChangeQRCode"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/FrMineCardTags"
+        app:layout_constraintTop_toBottomOf="@+id/FrMineCardTags" >
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新打赏码" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineAbout"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/FrMineChangeEmail"
+        app:layout_constraintTop_toBottomOf="@+id/FrMineChangeEmail">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关于我们" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/FrMineAdmin"
+        style="@style/FrMineCard"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/FrMineAbout"
+        app:layout_constraintStart_toStartOf="@+id/FrMineChangeQRCode"
+        app:layout_constraintTop_toBottomOf="@+id/FrMineChangeQRCode">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="管理员" />
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,13 @@ public class MyApplication extends Application {
      * 返回用户的登录态
      */
     public static final String MY_TOKEN_STR = "token";
-
+    /**
+     * 当前用户的权限，分为三种：
+     * 未登录：none
+     * 普通用户：user
+     * 管理员：admin
+     */
+    public static final String MY_USERE_TYPE_STR="user_type";
 
 //    此处以上，写入需要在App生命周期中使用的变量值
     private List<String> list;

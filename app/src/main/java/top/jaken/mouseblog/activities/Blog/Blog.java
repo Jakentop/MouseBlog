@@ -54,6 +54,7 @@ public class Blog extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         initViewPager();
+        initTabLayout();
     }
 
     /**
@@ -62,7 +63,7 @@ public class Blog extends Fragment {
      */
     private void init(View view) {
         pager = view.findViewById(R.id.FrBlogViewPager);
-        layout=view.findViewById(R.id.FrBlogTabLayout);
+        layout = view.findViewById(R.id.FrBlogTabLayout);
     }
 
     /**

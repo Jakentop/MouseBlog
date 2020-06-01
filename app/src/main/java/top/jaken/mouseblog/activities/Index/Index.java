@@ -19,8 +19,6 @@ import top.jaken.mouseblog.activities.Mine.Mine;
 
 public class Index extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,7 @@ public class Index extends AppCompatActivity {
               return  navigationSelect.setView(menuItem.getItemId());
             }
         });
-        navigationSelect.setDefaultFragment(0);//设置默认为主页
+        navigationSelect.setDefaultFragment(3);//设置默认为主页
     }
 
     /**

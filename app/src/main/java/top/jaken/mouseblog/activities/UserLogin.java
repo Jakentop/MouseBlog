@@ -46,7 +46,7 @@ public class UserLogin extends AppCompatActivity implements View.OnClickListener
         Loginbtn.setOnClickListener(this);
         Registerbtn.setOnClickListener(this);
 //        初始化tokenApi
-        Context context=this.getApplicationContext();
+        Context context=getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(getString(R.string.application_token), "");
         if ("".equals(token)) {

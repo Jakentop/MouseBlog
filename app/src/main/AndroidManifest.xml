@@ -5,27 +5,32 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".activities.Index.MyApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.Mine.plug.MineAdmin"></activity>
+        <activity android:name=".activities.Mine.plug.MineAbout" />
+        <activity android:name=".activities.Mine.plug.MineChangeQRCode" />
+        <activity android:name=".activities.Mine.plug.MineChangeEmail" />
+        <activity android:name=".activities.Mine.plug.MineChangePassword" />
+        <activity android:name=".activities.Mine.plug.MineCardTags" />
         <activity
             android:name=".activities.Index.Index"
             android:label="Index">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.ArticleShow" />
         <activity android:name=".activities.UserRegister" />
         <activity android:name=".activities.UserLogin" />
-        <activity android:name=".activities.blog_list">
-
-        </activity>
+        <activity android:name=".activities.blog_list" />
     </application>
 
 </manifest>

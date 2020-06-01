@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -40,8 +41,8 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     /**
      * 上次请求后是否还有内容
      */
-    private int total;
-    private int count;
+    private int total=-1;
+    private int count=1;
     /**
      * 用于绑值的数组，并通过调用动态修改或者重建
      */
@@ -80,6 +81,8 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             }
         });
         listView.setAdapter(adapter);
+        refreshLayout.setRefreshing(false);//取消刷新标志
+
     }
 
     /**
@@ -92,6 +95,15 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         new Thread(new Runnable() {
             @Override
             public void run() {
+//                预处理
+                if (isReplace) {
+                    count=start;total=-1;
+                    blogCards = new ArrayList<Map<String, Object>>();
+                }
+                else if(total!=-1&& (count-1)*offset>total){
+//                    到底了
+                    return;
+                }
                 final AjaxInterface ajax = new AjaxInterface(String.format("/blog/home/%d/%d", start, offset));
                 ajax.setType("GET");
                 AjaxResult res = ajax.doAjaxWithJSON();//发起请求
@@ -101,10 +113,6 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                     Map<String, Object> data = res.getData();
                     total = (int) data.get("total");
                     List<Map<String, Object>> list = (List<Map<String, Object>>) data.get("rows");
-                    if (isReplace) {
-                        count=1;
-                        blogCards = new ArrayList<Map<String, Object>>();
-                    }
                     for (Map<String, Object> item : list) {
                         blogCards.add(item);
                     }
@@ -112,7 +120,7 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 count++;
                 ajaxFinish.sendMessage(new Message());
             }
-        });
+        }).start();
     }
 
     /**
@@ -128,12 +136,28 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
      */
     @SuppressLint("ResourceAsColor")
     private void initRefreshLayout(){
-        refreshLayout.setColorSchemeColors(
-                R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.design_default_color_primary
-        );
+        refreshLayout.setColorSchemeResources(R.color.loading);
+        refreshLayout.setOnRefreshListener(this);
+    }
 
+    /**
+     * 初始化ListView绑定下拉加载更多内容
+     */
+    private void initListView() {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if(scrollState == SCROLL_STATE_IDLE)
+                {
+                    get_data(count, 5, false);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     /**
@@ -144,14 +168,16 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
+        initRefreshLayout();
+        initListView();
+
 //      绑定初始值
-        count=1;
-        get_data(count,5,true);
+        get_data(1,5,true);
     }
 
     @Override
     public void onRefresh() {
-        get_data(count++,5,false);
+        get_data(1,5,true);
     }
 
     public BlogBlog() {

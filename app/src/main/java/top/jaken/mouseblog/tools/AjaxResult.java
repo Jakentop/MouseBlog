@@ -52,7 +52,7 @@ public class AjaxResult implements Serializable {
         {
             switch ((int)code) {
                 case AjaxResponseCode.ERROR:
-                    Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "请求失败:"+this.getMessage(), Toast.LENGTH_SHORT).show();
                     break;
                 case AjaxResponseCode.LOGINERROR:
                     Toast.makeText(context, "用户名或密码错误", Toast.LENGTH_SHORT).show();
