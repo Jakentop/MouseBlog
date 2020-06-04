@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import top.jaken.mouseblog.activities.Index.MyApplication;
+
 /**
  * @author jaken
  * 一些验证的静态方法
@@ -53,5 +55,9 @@ public abstract class VaildHelper {
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(MapKeyName);
         return matcher.matches();
+    }
+
+    public static boolean isLogin(MyApplication application) {
+        return !(null == application.get(MyApplication.MY_TOKEN_STR));
     }
 }

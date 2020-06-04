@@ -66,7 +66,11 @@ public class Index extends AppCompatActivity {
                 getApplicationContext().
                 getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(getString(R.string.application_token), null);
+        String userName = sharedPreferences.getString(getString(R.string.application_user_name), null);
+        String userType = sharedPreferences.getString(getString(R.string.application_user_type), null);
         MyApplication app = (MyApplication) this.getApplication();
+        app.set(MyApplication.MY_USER_NAMEE_STR, userName);
+        app.set(MyApplication.MY_USERE_TYPE_STR, userType);
         app.set(MyApplication.MY_TOKEN_STR, token);
     }
 

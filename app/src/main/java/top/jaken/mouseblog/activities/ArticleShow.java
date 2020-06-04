@@ -14,7 +14,9 @@ import java.util.Date;
 import java.util.Map;
 
 import br.tiagohm.markdownview.MarkdownView;
+import br.tiagohm.markdownview.css.styles.Github;
 import top.jaken.mouseblog.R;
+import top.jaken.mouseblog.activities.Index.MyApplication;
 import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
 
@@ -76,7 +78,10 @@ public class ArticleShow extends AppCompatActivity {
             Map<String, Object> data = res.getData();
             txtTitle.setText(data.get("title").toString());
             txtUser.setText(((Map<String, Object>) (data.get("user"))).get("name").toString());
-            mdBody.loadMarkdown(data.get("body").toString());
+            mdBody.addStyleSheet(new Github());//添加一个样式，图片显示
+            String mdBodyStr = data.get("body").toString();
+            mdBodyStr = mdBodyStr.replaceAll("/img/.*\\)", getString(R.string.host_name) + "$0");
+            mdBody.loadMarkdown(mdBodyStr);
             txtTalk.setText(((Integer)data.get("discussCount")).toString());
             txtWatch.setText(((Integer)data.get("blogViews")).toString());
 

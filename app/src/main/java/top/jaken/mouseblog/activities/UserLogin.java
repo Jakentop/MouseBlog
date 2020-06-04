@@ -16,7 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import top.jaken.mouseblog.R;
+import top.jaken.mouseblog.activities.Index.MyApplication;
 import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
 
@@ -67,13 +70,24 @@ public class UserLogin extends AppCompatActivity implements View.OnClickListener
             AjaxResult res = (AjaxResult) bundle.get("res");
             if (res.JudgeCode(UserLogin.this)) {
                 String token = (String) (res.getData().get("token"));
+                String type = ((List<String>) (res.getData().get("roles"))).get(0).toLowerCase();
+                String name = (String) (res.getData().get("name"));
+
                 SharedPreferences sharedPreferences = UserLogin.
                         this.
                         getApplicationContext().
                         getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getString(R.string.application_token), token);
+                editor.putString(getString(R.string.application_user_name), name);
+                editor.putString(getString(R.string.application_user_type), type);
+                editor.commit();
+                MyApplication app = (MyApplication) UserLogin.this.getApplication();
+                app.set(MyApplication.MY_TOKEN_STR, token);
+                app.set(MyApplication.MY_USERE_TYPE_STR, type);
+                app.set(MyApplication.MY_USER_NAMEE_STR, name);
                 Log.i("登录成功：", res.getData().get("name").toString());
+                finish();
                 //登录成功跳转
             }
         }

@@ -1,9 +1,8 @@
 package top.jaken.mouseblog.adapter;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import top.jaken.mouseblog.R;
+import top.jaken.mouseblog.activities.Index.MyApplication;
 import top.jaken.mouseblog.activities.Mine.plug.MineCardTags;
 import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
@@ -30,6 +28,7 @@ public class CardMineTagsAdapter extends ArrayAdapter {
     private View view;
     Map<String,Object> cardTags;
     MineCardTags mine;
+    MyApplication app;
 
 
 
@@ -47,7 +46,8 @@ public class CardMineTagsAdapter extends ArrayAdapter {
                 AjaxInterface ajaxInterface;
                 if ("".equals(tag.getName())) {
                     ajaxInterface = new AjaxInterface(String.format("/tag/%d", tag.getId()));
-                    ajaxInterface.setType(AjaxInterface.GET);
+                    ajaxInterface.setType(AjaxInterface.DELETE);
+                    ajaxInterface.addToken(app);
                     AjaxResult res = ajaxInterface.doAjaxWithJSON();
                     mine.handler.sendMessage(mine.handler.obtainMessage(2, res));
                 }
@@ -56,7 +56,8 @@ public class CardMineTagsAdapter extends ArrayAdapter {
                     ajaxInterface = new AjaxInterface("/tag");
                     ajaxInterface.setType(AjaxInterface.PUT);
                     ajaxInterface.addDataItem("tagId", tag.getId().toString());
-                    ajaxInterface.addDataItem("tagNam",tag.getName().toString());
+                    ajaxInterface.addDataItem("tagName",tag.getName().toString());
+                    ajaxInterface.addToken(app);
                     AjaxResult res = ajaxInterface.doAjaxWithJSON();
                     mine.handler.sendMessage(mine.handler.obtainMessage(3, res));
                 }
@@ -71,19 +72,20 @@ public class CardMineTagsAdapter extends ArrayAdapter {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mine);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mine);
                 builder.setIcon(R.drawable.eye);
                 builder.setTitle("修改当前Tag");
                 View view = LayoutInflater.from(mine).inflate(R.layout.dialog_mine_tags_adapter_edit, null);
                 builder.setView(view);
-
+                final AlertDialog dialog= builder.show();
                 final EditText text = view.findViewById(R.id.NewTxt);
-                Button btn = view.findViewById(R.id.Enter);
+                final Button btn = view.findViewById(R.id.Enter);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Tag tag = new Tag((int) cardTags.get("id"), text.getText().toString());
                         send_message(tag);
+                        dialog.dismiss();
                     }
                 });
 
@@ -111,10 +113,10 @@ public class CardMineTagsAdapter extends ArrayAdapter {
      */
     private void init(int position, View convertView, ViewGroup parent) {
         cardTags=(Map<String,Object> ) getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(ImageId, parent,false);
+        view = LayoutInflater.from(getContext()).inflate(ImageId, parent,false);
         text = view.findViewById(R.id.CardMineTags);
-        edit = view.findViewById(R.id.CardMineTagsChange);
-        delete = view.findViewById(R.id.CardMineTagsDelete);
+        edit = view.findViewById(R.id.CardBlogMineChange);
+        delete = view.findViewById(R.id.CardBlogMineDelete);
     }
 
     @Override
@@ -126,8 +128,9 @@ public class CardMineTagsAdapter extends ArrayAdapter {
         return view;
     }
 
-    public CardMineTagsAdapter(Context context, int headImage, List<Map<String,Object>> obj,MineCardTags out) {
+    public CardMineTagsAdapter(Context context, int headImage, List<Map<String,Object>> obj, MineCardTags out, Application application) {
         super(context, headImage, obj);
+        app=(MyApplication)application;
         mine=out;
         ImageId=headImage;
     }

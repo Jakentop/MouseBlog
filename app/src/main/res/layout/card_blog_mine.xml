@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    layout_height=""
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp">
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:orientation="vertical">
+        <!--What you want to show-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_margin="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/CardBlogMineChange"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_margin="0dp"
+                android:background="@color/btnChange"
+                android:text="修改" />
+
+            <Button
+                android:id="@+id/CardBlogMineDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_margin="0dp"
+                android:background="@color/btnDelete"
+                android:text="删除" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_margin="0dp">
+
+            <TextView
+                android:id="@+id/CardBlogMineTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="这是标题"
+                android:textColor="@color/colorTitle"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/CardBlogMineBody"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:text="这是正文的概要"
+                app:layout_constraintEnd_toEndOf="@+id/CardBlogMineDate"
+                app:layout_constraintStart_toStartOf="@+id/CardBlogMineTitle"
+                app:layout_constraintTop_toBottomOf="@+id/CardBlogMineTitle" />
+
+            <TextView
+                android:id="@+id/CardBlogMineDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="这是时间"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/CardBlogMineTitle" />
+
+            <TextView
+                android:id="@+id/CardBlogMineTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="这是标签"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/CardBlogMineBody" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/CardBlogMineTags"
+                app:layout_constraintStart_toStartOf="@+id/CardBlogMineBody"
+                app:layout_constraintTop_toTopOf="@+id/CardBlogMineTags"
+                app:srcCompat="@drawable/tag" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -41,10 +42,13 @@ public class MineCardTags extends AppCompatActivity {
                 finishGetData((AjaxResult)msg.obj);
                 break;
             case 2:
-                finishEdit(msg);
+                finishDelete(msg);
                 break;
             case 3:
-                finishDelete(msg);
+                finishEdit(msg);
+                break;
+            case 4:
+                finishAddItem((AjaxResult)msg.obj);
 
         }
     }
@@ -88,7 +92,8 @@ public class MineCardTags extends AppCompatActivity {
      */
     private void finishGetData(AjaxResult res) {
         if (res.JudgeCode(this)) {
-            listView.setAdapter(new CardMineTagsAdapter(this, R.id.CardMineTags, list, this));
+            list = (List<Map<String, Object>>) res.getData().get("data");
+            listView.setAdapter(new CardMineTagsAdapter(this, R.layout.card_mine_tags, list, this,MineCardTags.this.getApplication()));
         }
     }
 
@@ -101,10 +106,45 @@ public class MineCardTags extends AppCompatActivity {
             public void run() {
                 AjaxInterface ajaxInterface = new AjaxInterface("/tag");
                 ajaxInterface.setType(AjaxInterface.GET);
-                AjaxResult res = ajaxInterface.doAjaxWithJSON();
+                ajaxInterface.addToken(MineCardTags.this.getApplication());
+                AjaxResult res = ajaxInterface.doAjaxWithJSON(true);
                 handler.sendMessage(handler.obtainMessage(1, res));
             }
         }).start();
+    }
+
+    /**
+     * 完成添加后的回调FinishAddItem
+     */
+    private void finishAddItem(AjaxResult res) {
+        if (res.JudgeCode(MineCardTags.this)) {
+            Toast.makeText(MineCardTags.this, "添加成功", Toast.LENGTH_SHORT).show();
+            get_data();
+            editText.setText("");
+        }
+    }
+
+    /**
+     * 初始化新增tag按钮
+     */
+    private void initBtn() {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String tagName = editText.getText().toString();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AjaxInterface ajaxInterface = new AjaxInterface("/tag");
+                        ajaxInterface.setType(AjaxInterface.POST);
+                        ajaxInterface.addDataItem("tagName", tagName);
+                        ajaxInterface.addToken(MineCardTags.this.getApplication());
+                        AjaxResult res = ajaxInterface.doAjaxWithJSON();
+                        handler.sendMessage(handler.obtainMessage(4, res));
+                    }
+                }).start();
+            }
+        });
     }
 
     /**
@@ -122,6 +162,7 @@ public class MineCardTags extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_card_tags);
         init();
+        initBtn();
         get_data();
     }
 }

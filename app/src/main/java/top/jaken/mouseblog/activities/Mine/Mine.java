@@ -1,6 +1,8 @@
 package top.jaken.mouseblog.activities.Mine;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,8 @@ import top.jaken.mouseblog.activities.Mine.plug.MineCardTags;
 import top.jaken.mouseblog.activities.Mine.plug.MineChangeEmail;
 import top.jaken.mouseblog.activities.Mine.plug.MineChangePassword;
 import top.jaken.mouseblog.activities.Mine.plug.MineChangeQRCode;
+import top.jaken.mouseblog.activities.UserLogin;
+import top.jaken.mouseblog.tools.VaildHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -120,6 +124,102 @@ public class Mine extends Fragment {
     }
 
     /**
+     * 设置当前功能页面的可视状态
+     * @param isLogtin
+     */
+    private void setVisibility(Boolean isLogtin) {
+        int ViewID = isLogtin ? View.VISIBLE : View.GONE;
+        about.setVisibility(ViewID);
+        admin.setVisibility(ViewID);
+        cardtag.setVisibility(ViewID);
+        changeEmail.setVisibility(ViewID);
+        changePassword.setVisibility(ViewID);
+        changQRCode.setVisibility(ViewID);
+
+    }
+
+    /**
+     * 初始化用户姓名UserName
+     */
+    private void initName() {
+        MyApplication app = (MyApplication) this.getActivity().getApplication();
+        if (VaildHelper.isLogin(app)) {
+            name.setText((String) app.get(MyApplication.MY_USER_NAMEE_STR));
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ;
+                }
+            });
+        }
+        else{
+            name.setText(getString(R.string.fr_mine_login_tips));
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Mine.this.getActivity(), UserLogin.class);
+                    startActivityForResult(intent,1);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        initName();
+        initLogout();
+    }
+
+    /**
+     * 用户登录事件Logout
+     * @param app
+     */
+    private void logoutHandler(MyApplication app) {
+//        删除app上下文
+        app.delete(MyApplication.MY_TOKEN_STR);
+        app.delete(MyApplication.MY_USER_NAMEE_STR);
+        app.delete(MyApplication.MY_USERE_TYPE_STR);
+//        删除数据库
+        SharedPreferences sharedPreferences = Mine.
+                this.
+                getContext().
+                getApplicationContext().
+                getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.application_token), null);
+        editor.putString(getString(R.string.application_user_name), null);
+        editor.putString(getString(R.string.application_user_type), null);
+        editor.commit();
+//        修改页面状态
+        name.setText(getString(R.string.fr_mine_login_tips));
+        logout.setVisibility(View.GONE);
+        initName();//初始化名字
+        Toast.makeText(Mine.this.getContext(), "用户登出成功", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 初始化用户登出
+     */
+    private void initLogout() {
+        final MyApplication app = (MyApplication) this.getActivity().getApplication();
+        if (VaildHelper.isLogin(app)) {
+            logout.setVisibility(View.VISIBLE);
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    logoutHandler(app);
+                }
+            });
+        }
+        else{
+            logout.setVisibility(View.GONE);
+            name.setText(getString(R.string.fr_mine_login_tips));
+            logout.setOnClickListener(null);
+        }
+    }
+
+    /**
      * 绑值初始化
      */
     private void init() {
@@ -130,6 +230,19 @@ public class Mine extends Fragment {
         changeEmail = view.findViewById(R.id.FrMineChangeEmail);
         changePassword = view.findViewById(R.id.FrMineChangePassword);
         changQRCode = view.findViewById(R.id.FrMineChangeQRCode);
+        name = view.findViewById(R.id.FrMineUserName);
+        logout = view.findViewById(R.id.FrMineLogout);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+
+        super.onHiddenChanged(hidden);
+        if(!hidden)
+        {
+            initName();
+            initLogout();
+        }
     }
 
     /**
@@ -141,6 +254,8 @@ public class Mine extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
+        initName();
+        initLogout();
         initAbout();
         initAdmin();
         initCardTags();

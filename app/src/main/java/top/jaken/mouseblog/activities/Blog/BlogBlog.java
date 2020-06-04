@@ -170,7 +170,6 @@ public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         init();
         initRefreshLayout();
         initListView();
-
 //      绑定初始值
         get_data(1,5,true);
     }

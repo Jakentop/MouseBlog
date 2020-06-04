@@ -16,6 +16,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import top.jaken.mouseblog.activities.Index.MyApplication;
@@ -37,6 +39,10 @@ public class AjaxInterface {
      * Type参数PUT请求
      */
     public final static String PUT = "PUT";
+    /**
+     * Type参数Delete请求
+     */
+    public final static String DELETE="DELETE";
     /**
      * 默认POST请求会自动在请求头中添加表单，此选项为不添加
      */
@@ -143,7 +149,7 @@ public class AjaxInterface {
                 httpURLConnection.addRequestProperty(item.getKey(), item.getValue());
             }
             //tips：注意只要打开了输出流，请求会自动变为POST，此时与上面设置无关
-            if (this.Type.equals(AjaxInterface.POST)) {
+            if (this.Type.equals(AjaxInterface.POST)||this.Type.equals(AjaxInterface.PUT)) {
                 byte[] data = getRequestData(this.data, this.encode).toString().getBytes();
                 httpURLConnection.setDoOutput(true);//启动输出流
                 httpURLConnection.setRequestProperty("Content-Length", String.valueOf(data.length));
@@ -194,6 +200,33 @@ public class AjaxInterface {
     }
 
     /**
+     * 如果data域为Array则传入True参数
+     * 由于发现这个开源的后端及其不负责任，在tag中有一个data的封装偷懒采用了list形式，所以我不得不对doAjaxWithJson做一次重载
+     * 注意在AjaxResult中，data域中被封装成了只有一个元素也就是data的map
+     * @param isDataArray
+     * @return
+     */
+    public AjaxResult doAjaxWithJSON(boolean isDataArray) {
+        if (isDataArray == true) {
+            String res = doAjax();
+            if (res == null) {
+                Log.e("请求出现问题", this.toString());
+                return null;
+            }
+            Map<String, Object> map = JSON.parseObject(res);
+            Map<String, Object> data = new ArrayMap<>();
+            data.put("data", map.get("data"));
+            AjaxResult result = new AjaxResult((int) map.get("code"),
+                    data,
+                    (String) map.get("message"),
+                    this.Type);
+            return result;
+        } else {
+            return doAjaxWithJSON();
+        }
+    }
+
+    /**
      * 在dataMap中添加项，如果data未初始化则直接返回false
      *
      * @param key
@@ -236,11 +269,12 @@ public class AjaxInterface {
 
     /**
      * 设置此方法需要用户登录Token
+     *
      * @param application
      */
     public void addToken(Application application) {
         MyApplication app = (MyApplication) application;
-        String token=(String) app.get(MyApplication.MY_TOKEN_STR);
+        String token = (String) app.get(MyApplication.MY_TOKEN_STR);
         this.addRequestProperty("Authorization", token);
     }
 
@@ -283,7 +317,8 @@ public class AjaxInterface {
      */
     public void setType(String type) {
         Type = type;
-        if ("POST".equals(type.toUpperCase())||"PUT".equals(type.toUpperCase())) {
+        if ("POST".equals(type.toUpperCase()) || "PUT".equals(type.toUpperCase())) {
+            if(data==null)
             data = new ArrayMap<String, String>();
             this.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         }

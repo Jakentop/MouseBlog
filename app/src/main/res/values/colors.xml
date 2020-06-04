@@ -6,4 +6,7 @@
     <color name="colorTitle">#000000</color>
     <color name="colorDeepTitle">#50abff</color>
     <color name="loading">#7DE2C4</color>
+    <color name="btnDelete">#ff4669</color>
+    <color name="btnChange">#bebebe</color>
+    <color name="TextViewBtn">#009cff</color>
 </resources>

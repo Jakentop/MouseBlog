@@ -33,6 +33,12 @@ public class MyApplication extends Application {
      * 管理员：admin
      */
     public static final String MY_USERE_TYPE_STR="user_type";
+    /**
+     * 当前登录的用户名
+     */
+    public static final String MY_USER_NAMEE_STR="user_name";
+
+    public static final String HOST_STR = "host";
 
 //    此处以上，写入需要在App生命周期中使用的变量值
     private List<String> list;
@@ -64,6 +70,21 @@ public class MyApplication extends Application {
             return value;
         }
         else return null;
+    }
+
+    /**
+     * 删除某个键值对的值，其实就是赋值为null
+     * @param key
+     * @return
+     */
+    public boolean delete(String key) {
+        try {
+            this.map.put(key, null);
+            return true;
+        } catch (Exception e) {
+            Log.e("删除上下文信息错误", e.getMessage());
+        }
+        return false;
     }
 
     @Override

@@ -1,47 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout layout_height=""
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    layout_height=""
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="0dp">
     <!-- Bottom View Start-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_margin="0dp"
         android:orientation="vertical">
         <!--What you want to show-->
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:orientation="horizontal">
 
-           <Button
-               android:id="@+id/CardMineTagsChange"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:text="修改" />
+            <Button
+                android:id="@+id/CardBlogMineChange"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_margin="0dp"
+                android:background="@color/btnChange"
+                android:text="修改" />
 
-           <Button
-               android:id="@+id/CardMineTagsDelete"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:text="删除" />
-       </LinearLayout>
+            <Button
+                android:id="@+id/CardBlogMineDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_margin="0dp"
+                android:background="@color/btnDelete"
+                android:text="删除" />
+        </LinearLayout>
     </LinearLayout>
     <!-- Bottom View End-->
 
     <!-- Surface View Start -->
     <LinearLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="0dp"
         android:orientation="vertical"
-        >
+        android:padding="10dp">
         <!--What you want to show in SurfaceView-->
         <TextView
             android:id="@+id/CardMineTags"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_margin="0dp"
             android:gravity="center_vertical"
             android:lineHeight="35dp"
             android:text="这是一个tag" />
