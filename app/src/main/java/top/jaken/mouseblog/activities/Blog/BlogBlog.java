@@ -30,6 +30,7 @@ import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
 
 /**
+ * @deprecated
  * A simple {@link Fragment} subclass.
  */
 public class BlogBlog extends Fragment implements SwipeRefreshLayout.OnRefreshListener {

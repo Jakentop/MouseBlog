@@ -187,7 +187,7 @@ public class AjaxInterface {
     public AjaxResult doAjaxWithJSON() {
         String res = doAjax();
         if (res == null) {
-            Log.e("请求出现问题", this.toString());
+            Log.e("请求出现问题", this.getClass().toString());
             return null;
         }
 
@@ -210,7 +210,7 @@ public class AjaxInterface {
         if (isDataArray == true) {
             String res = doAjax();
             if (res == null) {
-                Log.e("请求出现问题", this.toString());
+                Log.e("请求出现问题", this.getClass().toString());
                 return null;
             }
             Map<String, Object> map = JSON.parseObject(res);

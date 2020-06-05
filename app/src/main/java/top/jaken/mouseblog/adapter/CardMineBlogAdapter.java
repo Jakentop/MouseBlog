@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,16 +17,18 @@ import java.util.Map;
 
 import top.jaken.mouseblog.R;
 import top.jaken.mouseblog.activities.Index.MyApplication;
+import top.jaken.mouseblog.activities.Mine.plug.MineBlog;
+import top.jaken.mouseblog.dao.Blog;
+import top.jaken.mouseblog.tools.AjaxInterface;
+import top.jaken.mouseblog.tools.AjaxResult;
 
-/**
- * @deprecated
- */
-public class CardBlogMineAdapter extends ArrayAdapter {
+public class CardMineBlogAdapter extends ArrayAdapter {
     private final int ImageId;
     private View view;
     private TextView titleView,dateView,bodyView,tagsView;
     private Button changeBtn,deleteBtn;
     private Map<String,Object> item;
+    private MineBlog mineBlog;
     MyApplication app;
 
     /**
@@ -64,19 +67,65 @@ public class CardBlogMineAdapter extends ArrayAdapter {
         deleteBtn = view.findViewById(R.id.CardBlogMineDelete);
     }
 
+    private void sendMessage(final Blog blog) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (null == blog.getBlogTitle()) {
+                    AjaxInterface ajaxInterface = new AjaxInterface(String.format("/blog/%d", (blog.getTagId())));
+                    ajaxInterface.setType(AjaxInterface.DELETE);
+                    ajaxInterface.addToken(app);
+                    AjaxResult result = ajaxInterface.doAjaxWithJSON(true);
+                    mineBlog.handler.sendMessage(mineBlog.handler.obtainMessage(2, result));
+                }
+                else
+                {
+                }
+
+            }
+        }).start();
+    }
+
+    /**
+     * 初始化登出
+     */
+    private void initDeleteBtn() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Blog blog = new Blog((Integer) item.get("id"));
+                sendMessage(blog);
+            }
+        });
+    }
+
+    /**
+     * 初始化修改功能
+     */
+    private void initChangeBtn() {
+        changeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(app, "修改功能请使用web端", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         view= LayoutInflater.from(getContext()).inflate(ImageId, parent,false);
         init();
         initData(position);
+        initDeleteBtn();
+        initChangeBtn();
         return view;
     }
 
-    public CardBlogMineAdapter(Context context, int headImage, List<Map<String,Object>> obj, Application application) {
+    public CardMineBlogAdapter(Context context, int headImage, List<Map<String,Object>> obj, MineBlog mineBlog, Application application) {
         super(context, headImage, obj);
         app=(MyApplication)application;
+        this.mineBlog = mineBlog;
         ImageId=headImage;
     }
-
-
 }
+

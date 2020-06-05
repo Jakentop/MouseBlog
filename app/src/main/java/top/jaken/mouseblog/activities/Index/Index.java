@@ -53,7 +53,7 @@ public class Index extends AppCompatActivity {
               return  navigationSelect.setView(menuItem.getItemId());
             }
         });
-        navigationSelect.setDefaultFragment(3);//设置默认为主页
+        navigationSelect.setDefaultFragment(0);//设置默认为主页
     }
 
     /**
@@ -61,6 +61,7 @@ public class Index extends AppCompatActivity {
      * 将token导入app生命周期加快访问速度
      */
     private void initApplication() {
+        //        登录时验证一下token是否有效
 //        设置app的token
         SharedPreferences sharedPreferences = this.
                 getApplicationContext().
@@ -73,8 +74,4 @@ public class Index extends AppCompatActivity {
         app.set(MyApplication.MY_USERE_TYPE_STR, userType);
         app.set(MyApplication.MY_TOKEN_STR, token);
     }
-
-
-
-
 }

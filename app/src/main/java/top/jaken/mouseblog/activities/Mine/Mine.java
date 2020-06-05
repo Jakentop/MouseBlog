@@ -8,12 +8,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +24,7 @@ import top.jaken.mouseblog.activities.Mine.plug.MineAdmin;
 import top.jaken.mouseblog.activities.Mine.plug.MineCardTags;
 import top.jaken.mouseblog.activities.Mine.plug.MineChangeEmail;
 import top.jaken.mouseblog.activities.Mine.plug.MineChangePassword;
-import top.jaken.mouseblog.activities.Mine.plug.MineChangeQRCode;
+import top.jaken.mouseblog.activities.Mine.plug.MineBlog;
 import top.jaken.mouseblog.activities.UserLogin;
 import top.jaken.mouseblog.tools.VaildHelper;
 
@@ -33,8 +33,9 @@ import top.jaken.mouseblog.tools.VaildHelper;
  */
 public class Mine extends Fragment {
 
-    private CardView about,admin,cardtag,changeEmail,changePassword,changQRCode;
+    private CardView about,admin,cardtag,changeEmail,changePassword,mineBlog;
     private TextView name,logout;
+    private ConstraintLayout noLogin;
     private View view;
 
     /**
@@ -77,13 +78,13 @@ public class Mine extends Fragment {
     }
 
     /**
-     * 初始化修改打赏码ChangeQRCode
+     * 初始化我的博客MineBlog
      */
-    private void initChangeQRCode() {
-        changQRCode.setOnClickListener(new View.OnClickListener() {
+    private void initMineBlog() {
+        mineBlog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), MineChangeQRCode.class);
+                Intent intent = new Intent(view.getContext(), MineBlog.class);
                 startActivity(intent);
             }
         });
@@ -129,12 +130,14 @@ public class Mine extends Fragment {
      */
     private void setVisibility(Boolean isLogtin) {
         int ViewID = isLogtin ? View.VISIBLE : View.GONE;
+        int ViewIDNoLogin=isLogtin ? View.GONE : View.VISIBLE;
         about.setVisibility(ViewID);
         admin.setVisibility(ViewID);
         cardtag.setVisibility(ViewID);
         changeEmail.setVisibility(ViewID);
         changePassword.setVisibility(ViewID);
-        changQRCode.setVisibility(ViewID);
+        mineBlog.setVisibility(ViewID);
+        noLogin.setVisibility(ViewIDNoLogin);
 
     }
 
@@ -144,6 +147,7 @@ public class Mine extends Fragment {
     private void initName() {
         MyApplication app = (MyApplication) this.getActivity().getApplication();
         if (VaildHelper.isLogin(app)) {
+            setVisibility(true);
             name.setText((String) app.get(MyApplication.MY_USER_NAMEE_STR));
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -153,6 +157,7 @@ public class Mine extends Fragment {
             });
         }
         else{
+            setVisibility(false);
             name.setText(getString(R.string.fr_mine_login_tips));
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -172,7 +177,7 @@ public class Mine extends Fragment {
     }
 
     /**
-     * 用户登录事件Logout
+     * 用户登出事件Logout
      * @param app
      */
     private void logoutHandler(MyApplication app) {
@@ -196,6 +201,7 @@ public class Mine extends Fragment {
         logout.setVisibility(View.GONE);
         initName();//初始化名字
         Toast.makeText(Mine.this.getContext(), "用户登出成功", Toast.LENGTH_SHORT).show();
+        setVisibility(false);
     }
 
     /**
@@ -229,9 +235,10 @@ public class Mine extends Fragment {
         cardtag = view.findViewById(R.id.FrMineCardTags);
         changeEmail = view.findViewById(R.id.FrMineChangeEmail);
         changePassword = view.findViewById(R.id.FrMineChangePassword);
-        changQRCode = view.findViewById(R.id.FrMineChangeQRCode);
+        mineBlog = view.findViewById(R.id.FrMineBlog);
         name = view.findViewById(R.id.FrMineUserName);
         logout = view.findViewById(R.id.FrMineLogout);
+        noLogin = view.findViewById(R.id.FrMineNoLogin);
     }
 
     @Override
@@ -258,6 +265,7 @@ public class Mine extends Fragment {
         initLogout();
         initAbout();
         initAdmin();
+        initMineBlog();
         initCardTags();
         initChangeEmail();
         initChangePassword();

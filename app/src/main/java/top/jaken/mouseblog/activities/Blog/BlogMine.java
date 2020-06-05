@@ -29,6 +29,7 @@ import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
 
 /**
+ * @deprecated
  * A simple {@link Fragment} subclass.
  */
 public class BlogMine extends Fragment {

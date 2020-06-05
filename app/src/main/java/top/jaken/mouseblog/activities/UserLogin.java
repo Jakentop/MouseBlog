@@ -51,17 +51,20 @@ public class UserLogin extends AppCompatActivity implements View.OnClickListener
 //        初始化tokenApi
         Context context=getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(getString(R.string.application_token), "");
-        if ("".equals(token)) {
-            sharedPreferences.edit().putString(getString(R.string.application_token), "");
-        }
-        else{
-            Toast.makeText(context, "Token已存在用户已经处于登录状态", Toast.LENGTH_SHORT).show();
-        }
-
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.application_token), null);
+        editor.putString(getString(R.string.application_user_type), null);
+        editor.putString(getString(R.string.application_user_name), null);
+        MyApplication app = (MyApplication) this.getApplication();
+        app.set(MyApplication.MY_TOKEN_STR, null);
+        app.set(MyApplication.MY_USER_NAMEE_STR, null);
+        app.set(MyApplication.MY_USERE_TYPE_STR, null);
 
     }
 
+    /**
+     * 用户注册的回调
+     */
     @SuppressLint("HandlerLeak")
     private Handler loginHandler=new Handler(){
         @Override

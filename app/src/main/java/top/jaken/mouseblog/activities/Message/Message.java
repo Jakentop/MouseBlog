@@ -91,7 +91,7 @@ public class Message extends Fragment {
                 AjaxInterface ajaxInterface = new AjaxInterface(String.format("/message/%d/%d", start, offset));
                 ajaxInterface.setType(AjaxInterface.GET);
                 AjaxResult res = ajaxInterface.doAjaxWithJSON();
-                if (res.JudgeCode(Message.this.getContext())) {
+                if (res.JudgeCode()) {
                     total = (int) res.getData().get("total");
 //                    将当前获取到的数据添加进来
                     messageList.addAll((List<Map<String, Object>>) res.getData().get("rows"));

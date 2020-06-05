@@ -1,10 +1,13 @@
 package top.jaken.mouseblog.tools;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.Map;
+
+import top.jaken.mouseblog.activities.UserLogin;
 
 /**
  * @author jaken
@@ -44,7 +47,7 @@ public class AjaxResult implements Serializable {
      * @param context
      * @return
      */
-    public boolean JudgeCode(Context context) {
+    public boolean JudgeCode(Context context,Boolean doAuth) {
         if (AjaxResponseCode.OK==(int)code) {
             return true;
         }
@@ -62,6 +65,9 @@ public class AjaxResult implements Serializable {
                     break;
                 case AjaxResponseCode.ACCESSERROR:
                     Toast.makeText(context, "权限不足", Toast.LENGTH_SHORT).show();
+//                    权限不足自动跳转到登录界面
+                    Intent intent = new Intent(context, UserLogin.class);
+                    context.startActivity(intent);
                     break;
                 case AjaxResponseCode.REMOTEERROR:
                     Toast.makeText(context, "远程调用失败", Toast.LENGTH_SHORT).show();
@@ -81,6 +87,10 @@ public class AjaxResult implements Serializable {
             }
             return false;
         }
+    }
+
+    public boolean JudgeCode(Context context) {
+        return JudgeCode(context, true);
     }
 
     /**

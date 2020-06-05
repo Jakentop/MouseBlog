@@ -22,21 +22,17 @@
         android:id="@+id/State"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/User"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/Body"
         tools:text="100" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
+        android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="108dp"
         app:layout_constraintBottom_toBottomOf="@+id/State"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Body"
         app:layout_constraintTop_toTopOf="@+id/State"
         app:srcCompat="@drawable/eye" />
 
@@ -44,31 +40,26 @@
         android:id="@+id/User"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.083"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Tags"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/Body"
         tools:text="admin" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="0dp"
+        android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginStart="121dp"
         app:layout_constraintBottom_toBottomOf="@+id/User"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/User"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/user" />
 
     <TextView
         android:id="@+id/Body"
-        android:layout_width="385dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="这是正文主题"
         app:layout_constraintEnd_toEndOf="@+id/Date"
         app:layout_constraintStart_toStartOf="@+id/Title"
@@ -78,9 +69,8 @@
         android:id="@+id/Tags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/Body"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/Body"
         tools:text="test;hello;do;" />
@@ -90,20 +80,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/Title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Title"
         tools:text="2019-12-1" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
+        android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginEnd="127dp"
+        android:layout_marginStart="121dp"
         app:layout_constraintBottom_toBottomOf="@+id/Tags"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/Tags"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/tag" />
 </androidx.constraintlayout.widget.ConstraintLayout>
