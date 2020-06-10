@@ -86,6 +86,7 @@ public class UserRegister extends AppCompatActivity implements View.OnClickListe
         AjaxResult res = (AjaxResult) msg.get("res");
         if (res.JudgeCode(UserRegister.this)) {
             Log.i("注册成功",res.toString());
+            finish();
         }
 
     }
@@ -102,7 +103,7 @@ public class UserRegister extends AppCompatActivity implements View.OnClickListe
                 data.put("name", txtName.getText().toString());
                 data.put("password", txtPassword.getText().toString());
                 data.put("reppassword", txtRepPassword.getText().toString());
-                data.put("mail", txtName.getText().toString());
+                data.put("mail", txtMail.getText().toString());
                 data.put("mailCode", txtMailCode.getText().toString());
                 data.put("inviteCode", txtInviterCode.getText().toString());
                 if(VaildHelper.isStringMapsEmpty(data))

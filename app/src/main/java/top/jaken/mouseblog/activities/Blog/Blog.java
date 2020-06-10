@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableLayout;
 
@@ -55,6 +57,7 @@ public class Blog extends Fragment implements SwipeRefreshLayout.OnRefreshListen
      */
     private ListView listView;
     private SwipeRefreshLayout refreshLayout;
+    private ImageButton addButton;
 
     /**
      * handle用于处理请求完成的回调
@@ -83,7 +86,12 @@ public class Blog extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             }
         }
         count++;
-        BlogCardAdapter adapter = new BlogCardAdapter(Blog.this.getContext(),R.layout.blog_card, blogCards);
+        BlogCardAdapter adapter=null;
+        try {
+           adapter = new BlogCardAdapter(Blog.this.getContext(), R.layout.blog_card, blogCards);
+        } catch (Exception e) {
+            ;
+        }
 //            添加项目列表点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -137,6 +145,20 @@ public class Blog extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     private void init() {
         listView=Blog.this.getView().findViewById(R.id.FrBlogBlogLists);
         refreshLayout = Blog.this.getView().findViewById(R.id.FrBlogBlogRefreshLayout);
+        addButton = Blog.this.getView().findViewById(R.id.FrBlogAddBlog);
+    }
+
+    /**
+     * 初始化Addbutton按钮
+     */
+    private void initAddButton() {
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Blog.this.getContext(), BlogNewBlog.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -178,6 +200,7 @@ public class Blog extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         init();
         initRefreshLayout();
         initListView();
+        initAddButton();
 //      绑定初始值
         get_data(1,5,true);
     }

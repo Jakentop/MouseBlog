@@ -48,10 +48,14 @@ public class AjaxInterface {
      */
     public final static String POST_WITHOUT_FORM_PROPTYPE = "POSTno";
 
+    public String getUrl() {
+        return url;
+    }
+
     /**
      * 请求URL
      */
-    private final String url = "http://192.168.123.73:8001";
+    private final String url = "http://jaken.top:8001";
     /**
      * 请求的路径
      */
@@ -188,7 +192,8 @@ public class AjaxInterface {
         String res = doAjax();
         if (res == null) {
             Log.e("请求出现问题", this.getClass().toString());
-            return null;
+            AjaxResult result = new AjaxResult(204, null, "网络出现错误",null);
+            return result;
         }
 
         Map<String, Object> map = JSON.parseObject(res);

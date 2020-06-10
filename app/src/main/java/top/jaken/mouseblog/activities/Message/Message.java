@@ -56,8 +56,12 @@ public class Message extends Fragment {
      */
     private void finishGetMessage(android.os.Message msg) {
         if (msg.what == 1) {
-            CardMessageAdapter adapter = new CardMessageAdapter(Message.this.getContext(), R.layout.card_message, messageList);
-            listView.setAdapter(adapter);
+            try {
+                CardMessageAdapter adapter = new CardMessageAdapter(Message.this.getContext(), R.layout.card_message, messageList);
+                listView.setAdapter(adapter);
+            } catch (Exception e) {
+                ;
+            }
             count++;
             refreshLayout.setRefreshing(false);
         } else if (msg.what == 2) {

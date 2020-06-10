@@ -74,4 +74,5 @@ public class Index extends AppCompatActivity {
         app.set(MyApplication.MY_USERE_TYPE_STR, userType);
         app.set(MyApplication.MY_TOKEN_STR, token);
     }
+
 }

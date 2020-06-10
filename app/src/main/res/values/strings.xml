@@ -7,6 +7,4 @@
     <string name="fr_mine_login_tips">点击此处登录</string>
     <string name="application_user_name">application_user_name</string>
     <string name="application_user_type">application_user_type</string>
-    <string name="host_name">http://192.168.123.73:8001</string>
-
 </resources>

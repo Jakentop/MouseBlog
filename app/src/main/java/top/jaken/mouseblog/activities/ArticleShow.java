@@ -80,7 +80,8 @@ public class ArticleShow extends AppCompatActivity {
             txtUser.setText(((Map<String, Object>) (data.get("user"))).get("name").toString());
             mdBody.addStyleSheet(new Github());//添加一个样式，图片显示
             String mdBodyStr = data.get("body").toString();
-            mdBodyStr = mdBodyStr.replaceAll("/img/.*\\)", getString(R.string.host_name) + "$0");
+            AjaxInterface temp = new AjaxInterface("");
+            mdBodyStr = mdBodyStr.replaceAll("/img/.*\\)", temp.getUrl() + "$0");
             mdBody.loadMarkdown(mdBodyStr);
             txtTalk.setText(((Integer)data.get("discussCount")).toString());
             txtWatch.setText(((Integer)data.get("blogViews")).toString());

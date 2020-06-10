@@ -9,4 +9,5 @@
     <color name="btnDelete">#ff4669</color>
     <color name="btnChange">#bebebe</color>
     <color name="TextViewBtn">#009cff</color>
+    <color name="Null"></color>
 </resources>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import top.jaken.mouseblog.R;
+import top.jaken.mouseblog.activities.Index.Index;
 import top.jaken.mouseblog.activities.Index.MyApplication;
 import top.jaken.mouseblog.tools.AjaxInterface;
 import top.jaken.mouseblog.tools.AjaxResult;
@@ -90,7 +91,9 @@ public class UserLogin extends AppCompatActivity implements View.OnClickListener
                 app.set(MyApplication.MY_USERE_TYPE_STR, type);
                 app.set(MyApplication.MY_USER_NAMEE_STR, name);
                 Log.i("登录成功：", res.getData().get("name").toString());
-                finish();
+                Intent intent = new Intent(UserLogin.this, Index.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 //登录成功跳转
             }
         }

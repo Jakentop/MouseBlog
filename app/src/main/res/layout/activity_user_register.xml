@@ -65,7 +65,7 @@
         android:layout_marginTop="29dp"
         android:ems="10"
         android:hint="密码"
-        android:inputType="textPersonName"
+        android:inputType="textPassword|textWebPassword"
         app:layout_constraintEnd_toEndOf="@+id/regUserName"
         app:layout_constraintTop_toBottomOf="@+id/regUserName" />
 
@@ -76,7 +76,7 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="确认密码"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/regPassword"
         app:layout_constraintTop_toBottomOf="@+id/regPassword" />
 
