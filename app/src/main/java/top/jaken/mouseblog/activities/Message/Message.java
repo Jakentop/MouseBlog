@@ -68,8 +68,7 @@ public class Message extends Fragment {
 //            添加成功
             AjaxResult res = (AjaxResult) msg.obj;
             if(res.JudgeCode(Message.this.getContext()))
-            get_message(5);
-
+            get_message(1, 5);
         }
     }
 

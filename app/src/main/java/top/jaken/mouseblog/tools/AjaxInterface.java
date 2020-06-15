@@ -55,7 +55,7 @@ public class AjaxInterface {
     /**
      * 请求URL
      */
-    private final String url = "http://jaken.top:8001";
+    private final String url = "http://127.0.0.1:8001";
     /**
      * 请求的路径
      */
